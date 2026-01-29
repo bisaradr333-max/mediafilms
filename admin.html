@@ -1,17 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Admin Panel - mediafilms.com</title>
+  <title>Admin - mediafilms.com</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body{background:#111;color:white;font-family:Arial;padding:15px}
     input,textarea,button{width:100%;margin:8px 0;padding:10px;border:none;border-radius:5px}
     button{background:#e50914;color:white;font-size:16px}
+    .hidden{display:none}
+    .movie{border:1px solid #333;padding:8px;margin:8px 0}
   </style>
 </head>
 <body>
 
-<h2>🎬 Admin Panel - Add Movie</h2>
+<!-- LOGIN -->
+<div id="loginBox">
+  <h2>🔐 Admin Login</h2>
+  <input id="pass" type="password" placeholder="Enter Password">
+  <button onclick="login()">Login</button>
+  <p id="msg"></p>
+</div>
+
+<!-- ADMIN PANEL -->
+<div id="adminBox" class="hidden">
+
+<h2>🎬 Add Movie</h2>
 
 <input id="title" placeholder="Movie Name">
 <input id="poster" placeholder="Poster Image URL">
@@ -25,29 +38,63 @@
 
 <button onclick="saveMovie()">Save Movie</button>
 
-<p id="msg"></p>
+<h2>🗑 Delete Movies</h2>
+<div id="list"></div>
+
+</div>
 
 <script>
+const ADMIN_PASS = "1234"; // change this password
+
+function login(){
+  if(pass.value === ADMIN_PASS){
+    loginBox.classList.add("hidden");
+    adminBox.classList.remove("hidden");
+    loadList();
+  }else{
+    msg.innerText = "❌ Wrong Password";
+  }
+}
+
 function saveMovie(){
   const movie = {
-  title: title.value,
-  poster: poster.value,
-  quality: quality.value,
-  category: category.value,
-  screens: screens.value.split(","),
-  downloads: [...]
-};
-
+    title: title.value,
+    poster: poster.value,
+    quality: quality.value,
+    category: category.value,
+    screens: screens.value.split(","),
+    downloads: [
       {q:"480p", link:d480.value},
       {q:"720p", link:d720.value},
-      {q:"1080p", link:d1080.value},
+      {q:"1080p", link:d1080.value}
     ]
   };
 
   let data = JSON.parse(localStorage.getItem("movies") || "[]");
   data.push(movie);
   localStorage.setItem("movies", JSON.stringify(data));
-  msg.innerText = "✅ Movie Saved!";
+  alert("Movie Saved!");
+  loadList();
+}
+
+function loadList(){
+  let data = JSON.parse(localStorage.getItem("movies") || "[]");
+  list.innerHTML = "";
+  data.forEach((m,i)=>{
+    list.innerHTML += `
+      <div class="movie">
+        ${m.title}
+        <button onclick="del(${i})">Delete</button>
+      </div>
+    `;
+  });
+}
+
+function del(i){
+  let data = JSON.parse(localStorage.getItem("movies") || "[]");
+  data.splice(i,1);
+  localStorage.setItem("movies", JSON.stringify(data));
+  loadList();
 }
 </script>
 
