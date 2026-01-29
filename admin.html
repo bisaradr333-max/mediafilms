@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Panel - mediafilms.com</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body{background:#111;color:white;font-family:Arial;padding:15px}
+    input,textarea,button{width:100%;margin:8px 0;padding:10px;border:none;border-radius:5px}
+    button{background:#e50914;color:white;font-size:16px}
+  </style>
+</head>
+<body>
+
+<h2>🎬 Admin Panel - Add Movie</h2>
+
+<input id="title" placeholder="Movie Name">
+<input id="poster" placeholder="Poster Image URL">
+<input id="quality" placeholder="Quality (480p | 720p | 1080p)">
+<input id="category" placeholder="Category (Short Film / Drama / Comedy)">
+<textarea id="screens" placeholder="Screenshot URLs (comma separated)"></textarea>
+
+<input id="d480" placeholder="480p Download Link">
+<input id="d720" placeholder="720p Download Link">
+<input id="d1080" placeholder="1080p Download Link">
+
+<button onclick="saveMovie()">Save Movie</button>
+
+<p id="msg"></p>
+
+<script>
+function saveMovie(){
+  const movie = {
+  title: title.value,
+  poster: poster.value,
+  quality: quality.value,
+  category: category.value,
+  screens: screens.value.split(","),
+  downloads: [...]
+};
+
+      {q:"480p", link:d480.value},
+      {q:"720p", link:d720.value},
+      {q:"1080p", link:d1080.value},
+    ]
+  };
+
+  let data = JSON.parse(localStorage.getItem("movies") || "[]");
+  data.push(movie);
+  localStorage.setItem("movies", JSON.stringify(data));
+  msg.innerText = "✅ Movie Saved!";
+}
+</script>
+
+</body>
+</html>

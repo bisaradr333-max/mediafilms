@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>mediafilms.com</title>
+<input id="search" placeholder="Search movie..." />
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>🎬 mediafilms.com</header>
+<!-- SLIDER -->
+<div id="slider">
+  <img id="slideImg" src="">
+  <div id="slideTitle"></div>
+</div>
+
+<div id="cats">
+  <button onclick="filterCat('All')">All</button>
+  <button onclick="filterCat('Short Film')">Short Film</button>
+  <button onclick="filterCat('Drama')">Drama</button>
+  <button onclick="filterCat('Comedy')">Comedy</button>
+</div>
+
+<!-- DASHBOARD -->
+<section id="dashboard" class="grid"></section>
+
+<!-- DETAILS PAGE -->
+<section id="details" class="hidden">
+  <button onclick="goBack()">⬅ Back</button>
+  <h2 id="dTitle"></h2>
+  <img id="dPoster">
+
+  <h3>Screenshots</h3>
+  <div id="screens" class="screen-grid"></div>
+
+  <h3>Download Links</h3>
+  <div id="downloads"></div>
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>
